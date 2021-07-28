@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.getElementsByTagName("html")[0].className += " js";</script>
+  <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}">
+  <title>API Real-Estate | Based on CodyHouse Template</title>
+</head>
+<body>
+<header class="cd-header flex flex-column flex-center">
+  <div class="text-component text-center">
+    <h1>API Real-Estate </h1>
+    <p><a class="cd-article-link" href="https://github.com/CorentinChanet?tab=repositories">My GitHub</a></p>
+  </div>
+</header>
+
+<section class="cd-faq js-cd-faq container max-width-md margin-top-lg margin-bottom-lg">
+	<ul class="cd-faq__categories">
+		<li><a class="cd-faq__category cd-faq__category-selected truncate" href="#Introduction">Introduction</a></li>
+		<li><a class="cd-faq__category truncate" href="#API Use">API Use</a></li>
+		<li><a class="cd-faq__category truncate" href="#About the model">About the model</a></li>
+	</ul> <!-- cd-faq__categories -->
+
+	<div class="cd-faq__items">
+		<ul id="Introduction" class="cd-faq__group">
+			<li class="cd-faq__title"><h2>Introduction</h2></li>
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>Where am I?</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>Welcome! This Webpage provides information regarding the use of my API. Hopefully, you will not run into (too much) trouble using it!</p>
+          </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>What is the purpose of all this?</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+			  <p>This API can be used to get a predicted price for a given (hypothetical) property: it can be a house,
+				  an apartment, but also a farmhouse, etc. (many types are allowed by the API).
+				  In order to make a prediction, the server runs a model (more information on that in the last section)
+				  that needs some real-estate information from you. </p>
+		  </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+		</ul> <!-- cd-faq__group -->
+
+		<ul id="API Use" class="cd-faq__group">
+			<li class="cd-faq__title"><h2>API</h2></li>
+						<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>How should I use this API?</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>If you are here, you're already at the right place! On top of getting this page, you can also use this
+				endpoint (with a POST request) to send a properly formatted JSON objects with all the required fields
+				and their respective values (and yes, those are <i>case sensitive</i>). To help you figure out what the
+				API expects from you, you can check 2 super important links.
+				<a href="https://corentin-api-test.herokuapp.com/redoc">The first one</a> allows you to check all the
+				acceptable values for all the required fields. The values are case-sensitive!
+				<a href="https://corentin-api-test.herokuapp.com/docs">The second one</a> allows you to try the API
+				by directly typing some values in a JSON object and see what response and potential error message you
+				get with the values you've entered.</p>
+          </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+
+									<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>How was this API built?</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>With love! More seriously, I used fastAPI rather than Flask because the integration with Pydantic Models
+			is simply amazing. Almost all the validation takes place within the models (i.e. classes) definition: it's
+			OOP, it's easy, readable and customizable. And although it did not matter here, fastAPI can be used
+			asynchronously, with performance on par with Node.js - which is great for people like me who don't know
+			anything about JavaScript! If you are interested, go check fastAPI <a href="https://fastapi.tiangolo.com/">official documentation</a></p>
+          </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+		</ul> <!-- cd-faq__group -->
+
+		<ul id="About the model" class="cd-faq__group">
+			<li class="cd-faq__title"><h2>About the model</h2></li>
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>Where is the data coming from?</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+			<p>Data about real-estate in Belgium was scraped from Immoweb around June 2021 with BeautifulSoup and Selenium libraires.
+			The data includes information about the size, the condition of the building, the postal code, the type of building, etc.
+			Only the relevant features for the model were kept, and are shown in the /docs and /redoc.</p>
+		  </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>What kind of model is being used?</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>After trying a few linear regressions, a non-linear estimator called a Random Forest Classifier was used.
+			In order to improve the model, properties with too much missing information were dropped, categorical
+				features were converted into numerical ones, outliers were removed (about 0.1%) and the target (i.e.
+			the price) was rescaled with a logarithm to avoid too much "dispersion" at high prices. For more information
+			on Random Forest in general, you can check
+				<a href="https://williamkoehrsen.medium.com/random-forest-simple-explanation-377895a60d2d">this article</a></p>
+          </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+
+			<li class="cd-faq__item">
+				<a class="cd-faq__trigger" href="#0"><span>How good is the model?</span></a>
+				<div class="cd-faq__content">
+          <div class="text-component">
+            <p>Unfortunately, not *that* good... It can be pretty spot on, but it can also be off by more than half a
+			million for the most expensive or peculiar properties. Usually though, the predicted price is in acceptable
+			range and kind of make sense. On a more technical level, the Adjusted R2 score is about 0.70.</p>
+          </div>
+				</div> <!-- cd-faq__content -->
+			</li>
+
+		</ul> <!-- cd-faq__group -->
+	</div> <!-- cd-faq__items -->
+
+	<a href="#0" class="cd-faq__close-panel text-replace">Close</a>
+  
+  <div class="cd-faq__overlay" aria-hidden="true"></div>
+</section> <!-- cd-faq -->
+<script src="{{ url_for('static', path='/js/util.js') }}"></script> <!-- util functions included in the CodyHouse framework -->
+<script src="{{ url_for('static', path='/js/main.js') }}"></script>
+</body>
+</html>

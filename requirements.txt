@@ -1,0 +1,9 @@
+aiofiles
+fastapi
+jinja2
+joblib
+numpy
+pandas
+scikit-learn
+scipy
+uvicorn
