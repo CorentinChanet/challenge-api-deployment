@@ -87,4 +87,5 @@ model = GridSearchCV(estimator, param_grid=params, cv=Kfolds, scoring='r2', n_jo
 joblib.dump(model, 'model.pkl')
 
 model_columns = list(data.columns)
+
 joblib.dump(model_columns, 'model_columns.pkl')

@@ -30,7 +30,7 @@ async def custom_http_exception_handler(request, exc):
 
 @app.get("/")
 def read_root():
-    return """This API is used to predict a price from real-estate data (in Belgium). Go to https://corentin-api-test.herokuapp.com/predict/ for more information."""
+    return """This API is used to predict a price from real-estate data (in Belgium). Go to http://corentin-api-test.herokuapp.com/predict/ for more information."""
 
 
 @app.get("/predict/")
